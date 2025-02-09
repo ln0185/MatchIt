@@ -182,12 +182,12 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: "bold",
     color: "#444343",
-    marginBottom: 20,
+    marginBottom: 15,
   },
   matchText2: {
     fontSize: 20,
     color: "#444343",
-    marginBottom: 20,
+    marginBottom: 15,
   },
 });
 
