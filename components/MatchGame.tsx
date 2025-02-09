@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 10,
   },
   grid: {
     flexDirection: "row",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     height: 95,
   },
   button: {
-    marginTop: 20,
+    marginTop: 15,
     padding: 10,
     backgroundColor: "#444343",
     borderRadius: 5,
