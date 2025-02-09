@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { useFonts } from "expo-font";
 
 interface Card {
   id: number;
@@ -10,13 +11,11 @@ interface Card {
 
 const cardImages = [
   require("../assets/images/Coffee.png"),
-  require("../assets/images/Fishing.png"),
   require("../assets/images/Gaming.png"),
   require("../assets/images/Food.png"),
   require("../assets/images/Plants.png"),
   require("../assets/images/Music.png"),
   require("../assets/images/Party.png"),
-  require("../assets/images/Book.png"),
 ];
 const cardBackImage = require("../assets/images/cardBack.png");
 
@@ -38,6 +37,12 @@ const MemoryGame: React.FC = () => {
   const [timerActive, setTimerActive] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
 
+  const [fontsLoaded] = useFonts({
+    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <Text>Loading Fonts...</Text>;
+  }
   useEffect(() => {
     let interval: number | undefined;
     if (timerActive) {
@@ -74,7 +79,7 @@ const MemoryGame: React.FC = () => {
         setCards([...cards]);
         if (cards.every((card) => card.isMatched)) {
           setIsGameFinished(true);
-          setTimerActive(false); // Stop the timer when the game is finished
+          setTimerActive(false);
         }
       }, 1000);
     }
@@ -84,16 +89,21 @@ const MemoryGame: React.FC = () => {
     setCards(generateCards());
     setFlippedCards([]);
     setMoves(0);
-    setTime(0); // Reset the timer to 0 when restarting the game
+    setTime(0);
     setTimerActive(true);
     setIsGameFinished(false);
   };
 
   return (
     <View style={styles.container}>
-      <Text>Moves: {moves}</Text>
-      <Text>Time: {time}s</Text>
-      {isGameFinished && <Text>🎉 Congrats! You beat the game! 🎉</Text>}
+      <Text style={styles.matchText}>Match it !</Text>
+      <Text style={styles.matchText2}>Moves: {moves}</Text>
+      <Text style={styles.matchText2}>Time: {time}s</Text>
+      {isGameFinished && (
+        <Text style={styles.matchText2}>
+          🎉 Congrats! You beat the game! 🎉
+        </Text>
+      )}
       <View style={styles.grid}>
         {cards.map((card) => (
           <TouchableOpacity
@@ -105,7 +115,7 @@ const MemoryGame: React.FC = () => {
               {card.isFlipped || card.isMatched ? (
                 <Image source={card.icon} style={styles.cardImage} />
               ) : (
-                <Image source={cardBackImage} style={styles.cardImage} /> // Show the back image
+                <Image source={cardBackImage} style={styles.cardImage} />
               )}
             </View>
           </TouchableOpacity>
@@ -128,17 +138,19 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    width: "80%",
+    width: "95%",
     justifyContent: "space-evenly",
   },
   card: {
-    width: 60,
-    height: 60,
-    backgroundColor: "#f0f0f0",
+    width: 95,
+    height: 95,
+    backgroundColor: "#FFF5DB",
     margin: 5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
     elevation: 3,
   },
   cardContent: {
@@ -146,18 +158,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardImage: {
-    width: 50,
-    height: 50,
+    width: 95,
+    height: 95,
   },
   button: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: "#007bff",
+    backgroundColor: "#444343",
     borderRadius: 5,
   },
   buttonText: {
     color: "white",
+    fontWeight: "regular",
     fontSize: 18,
+    fontFamily: "Roboto-Regular",
+  },
+  matchText: {
+    fontSize: 48,
+    fontWeight: "bold",
+    color: "#444343",
+    marginBottom: 20,
+  },
+  matchText2: {
+    fontSize: 20,
+    color: "#444343",
+    marginBottom: 20,
   },
 });
 
