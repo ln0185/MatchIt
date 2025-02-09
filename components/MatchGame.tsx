@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     height: 95,
   },
   button: {
-    marginTop: 15,
+    marginTop: 10,
     padding: 10,
     backgroundColor: "#444343",
     borderRadius: 5,
@@ -182,12 +182,12 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: "bold",
     color: "#444343",
-    marginBottom: 15,
+    marginBottom: 10,
   },
   matchText2: {
     fontSize: 20,
     color: "#444343",
-    marginBottom: 15,
+    marginBottom: 10,
   },
 });
 
