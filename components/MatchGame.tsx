@@ -43,9 +43,10 @@ const MemoryGame: React.FC = () => {
   if (!fontsLoaded) {
     return <Text>Loading Fonts...</Text>;
   }
+
   useEffect(() => {
     let interval: number | undefined;
-    if (timerActive) {
+    if (timerActive && !isGameFinished) {
       interval = setInterval(
         () => setTime((prev) => prev + 1),
         1000
@@ -56,9 +57,13 @@ const MemoryGame: React.FC = () => {
         clearInterval(interval as number);
       }
     };
-  }, [timerActive]);
+  }, [timerActive, isGameFinished]);
 
   const handleCardFlip = (card: Card) => {
+    if (!timerActive) {
+      setTimerActive(true);
+    }
+
     if (flippedCards.length === 2 || card.isFlipped || card.isMatched) return;
 
     card.isFlipped = true;
@@ -90,7 +95,7 @@ const MemoryGame: React.FC = () => {
     setFlippedCards([]);
     setMoves(0);
     setTime(0);
-    setTimerActive(true);
+    setTimerActive(false);
     setIsGameFinished(false);
   };
 
